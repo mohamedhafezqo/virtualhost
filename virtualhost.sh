@@ -10,7 +10,7 @@ owner=$(who am i | awk '{print $1}')
 email='webmaster@localhost'
 sitesEnable='/etc/apache2/sites-enabled/'
 sitesAvailable='/etc/apache2/sites-available/'
-userDir='/var/www/'
+userDir='/var/www/html'
 sitesAvailabledomain=$sitesAvailable$domain.conf
 
 ### don't modify from here unless you know what you are doing ####
@@ -139,16 +139,19 @@ if [ "$action" == 'create' ]
 
 		### check if directory exists or not
 		if [ -d $rootDir ]; then
-			echo -e $"Delete host root directory ? (y/n)"
-			read deldir
-
-			if [ "$deldir" == 'y' -o "$deldir" == 'Y' ]; then
-				### Delete the directory
-				rm -rf $rootDir
-				echo -e $"Directory deleted"
-			else
-				echo -e $"Host directory conserved"
-			fi
+		
+			echo -e $"Host directory found and conserved"
+		## if you need to delete directory when delete vhost uncomment the below lines
+		# echo -e $"Delete host root directory ? (y/n)"
+		# read deldir
+		# if [ "$deldir" == 'y' -o "$deldir" == 'Y' ]; then
+		# 	### Delete the directory
+		# 	rm -rf $rootDir
+		# 	echo -e $"Directory not deleted, \if you want to deleted"
+		# else
+		# 	echo -e $"Host directory conserved"
+		# fi
+			
 		else
 			echo -e $"Host directory not found. Ignored"
 		fi
